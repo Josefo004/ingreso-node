@@ -6,9 +6,8 @@ import { validarCampos } from '../middlewares/validar-campos';
 
 const router = Router();
 
-router.get('/',[
-  check('usuario', 'El Usuario es Obligatorio').notEmpty(),
-  check('password', 'La contraseña es Obligatoria').notEmpty(),
+router.get('/:termino',[
+  check('termino', 'el dato es Obligatorio').notEmpty(),
   validarCampos
 ], getPersona);
 

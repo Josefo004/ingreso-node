@@ -1,7 +1,29 @@
 import axios from 'axios';
-import { Op } from 'sequelize';
+import { Op, Sequelize } from 'sequelize';
 import { TJulio, Tjulioquery } from '../interfaces/interfaces';
 import Persona from '../models/persona';
+
+//si una cadena es CI o nombre
+export const esNumero = (cadx:string) => {
+  let cnumero = 0;
+  let cletra = 0;
+  for (let i = 0; i < cadx.length; i++) Number(cadx[i])? cnumero++ : cletra++
+  return cnumero > cletra ? true : false;  
+  // console.log('numero ', cnumero);
+  // console.log('letras', cletra);
+}
+
+export const datos_persona = async(ter:string) => {
+  const resultado = await Persona.findAll({
+    attributes: ['perid', 'documento', 'nombre', 'paterno', 'materno', [Sequelize.fn('concat', Sequelize.col('nombre'), ' ', Sequelize.col('paterno'), ' ', Sequelize.col('materno')), 'nombrec']],
+    where: [
+      Sequelize.where(Sequelize.fn('concat', Sequelize.col('nombre'), ' ', Sequelize.col('paterno'), ' ', Sequelize.col('materno'), ' ', Sequelize.col('documento')), 
+      { [Op.like]: `%${ter}%` })
+    ]
+  });
+  return resultado;
+}
+
 
 //usuario por IDUSUARIO
 export const datos_persona_byCI = async(ter:string) => {
@@ -14,10 +36,11 @@ export const datos_persona_byCI = async(ter:string) => {
   return resultado;
 }
 
-export const datos_persona_byCI_julio = async (ter:string) => {
+//API JULIO
+export const datos_persona_julio = async (q:string, by:string) => {
   const buerpo:Tjulioquery={
-    by: 'ci',
-    q: ter
+    by,
+    q
   }
   console.log(buerpo);
   const resp = await axios.post<TJulio[]>('http://dali.chuquisaca.gob.bo/api/v1/search',buerpo);

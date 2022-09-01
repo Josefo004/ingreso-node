@@ -13,7 +13,7 @@ const Usuario = db.define('Usuario', {
   tableName: 'usuario'
 });
 
-Usuario.hasOne(Persona,{foreignKey: 'perid'});
+Usuario.hasOne(Persona, {foreignKey: 'perid'});
 Persona.belongsTo(Usuario);
 
 export default Usuario;

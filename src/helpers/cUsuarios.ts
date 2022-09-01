@@ -1,4 +1,4 @@
-import { Op } from 'sequelize';
+import { Op, Sequelize } from 'sequelize';
 import Persona from '../models/persona';
 import Usuario from '../models/usuario';
 
@@ -40,7 +40,7 @@ export const datos_usuario_ById = async(id:string) => {
     include:{
       model: Persona,
       required: true,
-      attributes: ['perid', 'documento', 'nombre', 'paterno', 'materno']
+      attributes: ['perid', 'documento', 'nombre', 'paterno', 'materno', [Sequelize.fn('concat', Sequelize.col('nombre'), ' ', Sequelize.col('paterno'), ' ', Sequelize.col('materno')), 'nombrec']]
     },
     where: { usuid: id}
   });

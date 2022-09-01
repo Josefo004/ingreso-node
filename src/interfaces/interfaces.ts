@@ -30,10 +30,10 @@ export interface Tusuario {
   clave:     string;
   perid:     number;
   bloqueado: boolean;
-  Persona:   Persona;
+  Persona:   TPersona;
 }
 
-export interface Persona {
+export interface TPersona {
   perid:     number;
   documento: string;
   nombre:    string;

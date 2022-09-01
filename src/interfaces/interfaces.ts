@@ -1,11 +1,3 @@
-export interface Tmenu {
-  titulo:   string;
-  icono:    string;
-  url:      string;
-  permisos: string[];
-  submenu?: Tmenu[];
-}
-
 //tipo JULIO API
 export interface Tjulioquery {
   by: string;
@@ -29,5 +21,22 @@ export interface Dependence {
   id:     number;
   nombre: string;
 }
-
 // End tipo Julio
+
+// MIO
+export interface Tusuario {
+  usuid:     number;
+  usuario:   string;
+  clave:     string;
+  perid:     number;
+  bloqueado: boolean;
+  Persona:   Persona;
+}
+
+export interface Persona {
+  perid:     number;
+  documento: string;
+  nombre:    string;
+  paterno:   string;
+  materno:   string;
+}

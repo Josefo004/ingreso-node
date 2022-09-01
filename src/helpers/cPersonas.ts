@@ -1,12 +1,17 @@
-import axios from 'axios'
-import db from '../db/conex';
+import axios from 'axios';
+import { Op } from 'sequelize';
 import { TJulio, Tjulioquery } from '../interfaces/interfaces';
+import Persona from '../models/persona';
 
 //usuario por IDUSUARIO
 export const datos_persona_byCI = async(ter:string) => {
-  const q = `select * FROM persona as p where p.documento LIKE '${ter}%'`;
-  const [results] = await db.query(q);
-  return results;
+  const resultado = await Persona.findAll({
+    attributes: ['perid', 'documento', 'nombre', 'paterno', 'materno'],
+    where:{documento:{
+      [Op.like]: `${ter}%`
+    }}
+  });
+  return resultado;
 }
 
 export const datos_persona_byCI_julio = async (ter:string) => {

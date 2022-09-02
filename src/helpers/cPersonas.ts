@@ -3,6 +3,9 @@ import { Op, Sequelize } from 'sequelize';
 import { TJulio, Tjulioquery } from '../interfaces/interfaces';
 import Persona from '../models/persona';
 
+import dotenv from 'dotenv'
+dotenv.config();
+
 //si una cadena es CI o nombre
 export const esNumero = (cadx:string) => {
   let cnumero = 0;
@@ -24,7 +27,6 @@ export const datos_persona = async(ter:string) => {
   return resultado;
 }
 
-
 //usuario por IDUSUARIO
 export const datos_persona_byCI = async(ter:string) => {
   const resultado = await Persona.findAll({
@@ -38,13 +40,17 @@ export const datos_persona_byCI = async(ter:string) => {
 
 //API JULIO
 export const datos_persona_julio = async (q:string, by:string) => {
+  const apiJulio = process.env.API_JULIO || '';
   const buerpo:Tjulioquery={
     by,
     q
   }
   console.log(buerpo);
-  const resp = await axios.post<TJulio[]>('http://dali.chuquisaca.gob.bo/api/v1/search',buerpo);
-  console.log(resp.data);
-  
-  return resp.data;
+  try {
+    const resp = await axios.post<TJulio[]>(apiJulio,buerpo);
+    console.log(resp.data);
+    return resp.data;
+  } catch (error) {
+    return [];
+  }
 }

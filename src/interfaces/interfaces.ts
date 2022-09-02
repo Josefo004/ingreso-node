@@ -39,4 +39,5 @@ export interface TPersona {
   nombre:    string;
   paterno:   string;
   materno:   string;
+  nombrec:   string;
 }

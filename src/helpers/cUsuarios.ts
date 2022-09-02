@@ -22,7 +22,7 @@ export const datos_usuario = async(u:string, p:string) => {
     include:{
       model: Persona,
       required: true,
-      attributes: ['perid', 'documento', 'nombre', 'paterno', 'materno']
+      attributes: ['perid', 'documento', 'nombre', 'paterno', 'materno', [Sequelize.fn('concat', Sequelize.col('nombre'), ' ', Sequelize.col('paterno'), ' ', Sequelize.col('materno')), 'nombrec']]
     },
     where: {
       [Op.and]: [

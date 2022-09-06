@@ -1,6 +1,6 @@
 import { Op, Sequelize } from 'sequelize';
-import Persona from '../models/persona';
-import Usuario from '../models/usuario';
+import Persona from '../models/tables/persona';
+import Usuario from '../models/tables/usuario';
 
 /* export const consulta_predios = async (cc:string) => {
 
@@ -22,7 +22,7 @@ export const datos_usuario = async(u:string, p:string) => {
     include:{
       model: Persona,
       required: true,
-      attributes: ['perid', 'documento', 'nombre', 'paterno', 'materno', [Sequelize.fn('concat', Sequelize.col('nombre'), ' ', Sequelize.col('paterno'), ' ', Sequelize.col('materno')), 'nombrec']]
+      attributes: ['perid', 'documento', 'nombre', 'paterno', 'materno', 'biometrico', [Sequelize.fn('concat', Sequelize.col('nombre'), ' ', Sequelize.col('paterno'), ' ', Sequelize.col('materno')), 'nombrec']]
     },
     where: {
       [Op.and]: [
@@ -46,9 +46,6 @@ export const datos_usuario_ById = async(id:string) => {
   });
   return usuarios;
 }
-
-
-
 
 //usuario por USUARIO y CONTRASEÑA
 /* export const datos_usuario = async(u:string, p:string) => {

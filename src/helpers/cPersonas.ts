@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Op, Sequelize } from 'sequelize';
 import { TJulio, Tjulioquery } from '../interfaces/interfaces';
-import Persona from '../models/persona';
+import Persona from '../models/tables/persona';
 
 import dotenv from 'dotenv'
 dotenv.config();
@@ -18,22 +18,11 @@ export const esNumero = (cadx:string) => {
 
 export const datos_persona = async(ter:string) => {
   const resultado = await Persona.findAll({
-    attributes: ['perid', 'documento', 'nombre', 'paterno', 'materno', [Sequelize.fn('concat', Sequelize.col('nombre'), ' ', Sequelize.col('paterno'), ' ', Sequelize.col('materno')), 'nombrec']],
+    attributes: ['perid', 'documento', 'nombre', 'paterno', 'materno', 'biometrico', [Sequelize.fn('concat', Sequelize.col('nombre'), ' ', Sequelize.col('paterno'), ' ', Sequelize.col('materno')), 'nombrec']],
     where: [
       Sequelize.where(Sequelize.fn('concat', Sequelize.col('nombre'), ' ', Sequelize.col('paterno'), ' ', Sequelize.col('materno'), ' ', Sequelize.col('documento')), 
       { [Op.like]: `%${ter}%` })
     ]
-  });
-  return resultado;
-}
-
-//usuario por IDUSUARIO
-export const datos_persona_byCI = async(ter:string) => {
-  const resultado = await Persona.findAll({
-    attributes: ['perid', 'documento', 'nombre', 'paterno', 'materno'],
-    where:{documento:{
-      [Op.like]: `${ter}%`
-    }}
   });
   return resultado;
 }
@@ -54,3 +43,15 @@ export const datos_persona_julio = async (q:string, by:string) => {
     return [];
   }
 }
+
+
+//usuario por IDUSUARIO
+// export const datos_persona_byCI = async(ter:string) => {
+//   const resultado = await Persona.findAll({
+//     attributes: ['perid', 'documento', 'nombre', 'paterno', 'materno'],
+//     where:{documento:{
+//       [Op.like]: `${ter}%`
+//     }}
+//   });
+//   return resultado;
+// }

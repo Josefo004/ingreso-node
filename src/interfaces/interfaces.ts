@@ -34,10 +34,11 @@ export interface Tusuario {
 }
 
 export interface TPersona {
-  perid:     number;
-  documento: string;
-  nombre:    string;
-  paterno:   string;
-  materno:   string;
-  nombrec:   string;
+  perid:      number;
+  documento:  string;
+  nombre:     string;
+  paterno:    string;
+  materno:    string;
+  nombrec:    string;
+  biometrico: number | null;
 }

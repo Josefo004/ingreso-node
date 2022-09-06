@@ -2,6 +2,7 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import personasRouter from '../routes/personas.routes';
 import usuariosRouter from '../routes/usuarios.routes';
+import permisosRouter from '../routes/permisos.routes';
 import db from '../db/conex';
 
 class Server {
@@ -10,7 +11,8 @@ class Server {
   private port: string; 
   private apiPaths = {
     personas: `/api/personas`,
-    usuarios: `/api/usuarios`
+    usuarios: `/api/usuarios`,
+    permisos: `/api/permisos`
   }
 
   constructor(){
@@ -50,6 +52,7 @@ class Server {
   routes(){
     this.app.use( this.apiPaths.usuarios, usuariosRouter );
     this.app.use( this.apiPaths.personas, personasRouter );
+    this.app.use( this.apiPaths.permisos, permisosRouter );
   }
 
   listen(){

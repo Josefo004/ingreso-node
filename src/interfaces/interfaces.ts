@@ -42,3 +42,8 @@ export interface TPersona {
   nombrec:    string;
   biometrico: number | null;
 }
+
+export interface Tpermiso {
+  usuid:    number;
+  permisos: string[];
+}

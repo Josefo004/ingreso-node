@@ -3,6 +3,7 @@ import cors from 'cors';
 import personasRouter from '../routes/personas.routes';
 import usuariosRouter from '../routes/usuarios.routes';
 import permisosRouter from '../routes/permisos.routes';
+import ingresosRouter from '../routes/ingresos.routes';
 import db from '../db/conex';
 
 class Server {
@@ -12,7 +13,8 @@ class Server {
   private apiPaths = {
     personas: `/api/personas`,
     usuarios: `/api/usuarios`,
-    permisos: `/api/permisos`
+    permisos: `/api/permisos`,
+    ingresos: `/api/ingresos`
   }
 
   constructor(){
@@ -53,6 +55,7 @@ class Server {
     this.app.use( this.apiPaths.usuarios, usuariosRouter );
     this.app.use( this.apiPaths.personas, personasRouter );
     this.app.use( this.apiPaths.permisos, permisosRouter );
+    this.app.use( this.apiPaths.ingresos, ingresosRouter );
   }
 
   listen(){

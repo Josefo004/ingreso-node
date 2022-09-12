@@ -40,7 +40,7 @@ export const datos_usuario_ById = async(id:string) => {
     include:{
       model: Persona,
       required: true,
-      attributes: ['perid', 'documento', 'nombre', 'paterno', 'materno', [Sequelize.fn('concat', Sequelize.col('nombre'), ' ', Sequelize.col('paterno'), ' ', Sequelize.col('materno')), 'nombrec']]
+      attributes: ['perid', 'documento', 'nombre', 'paterno', 'materno', 'biometrico', [Sequelize.fn('concat', Sequelize.col('nombre'), ' ', Sequelize.col('paterno'), ' ', Sequelize.col('materno')), 'nombrec']]
     },
     where: { usuid: id}
   });

@@ -1,7 +1,7 @@
-import RolPermisos from "../models/tables/rolPermisos";
+import RolPermiso from "../models/tables/rolPermiso";
 
 export const permisos_ByUsuId = async(id:string) => {
-  const permisos = await RolPermisos.findAll({
+  const permisos = await RolPermiso.findAll({
     attributes: ['usuid', 'permisos'],
     where: {usuid: id}
   });

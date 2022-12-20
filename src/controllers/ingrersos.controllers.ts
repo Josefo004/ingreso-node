@@ -8,7 +8,7 @@ export const postIngreso = async (req: Request, res: Response) => {
   //console.log({perid});
   
   const resultado = await insert_Ingreso(perid);
-  console.log(resultado);
+  console.log('resultado',resultado);
   
   const estado = resultado.length>0 ? 200 : 400 ;
 

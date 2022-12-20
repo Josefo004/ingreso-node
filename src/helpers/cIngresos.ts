@@ -1,14 +1,13 @@
+import { NOW } from "sequelize/types";
 import db from "../db/conex";
-//import Ingreso from "../models/tables/ingreso";
+import Ingreso from "../models/tables/ingreso";
+
 
 export const insert_Ingreso = async(id:string) => {
   try {
-    const q = `insert into ingreso(perid, dateingreso) values(${id}, now());`;
-    const ingreso = await db.query(q);
-    // const ingreso = await Ingreso.create({perid:id});
-    // console.log(ingreso);
-    // await ingreso.save();
-    return ingreso;
+    const ingreso = await Ingreso.create({perid:id});
+    await ingreso.save();
+    return [ingreso];
   } catch (error) {
     console.log(error);
     return [];
@@ -54,3 +53,14 @@ export const show_ingresos_of = async(peid:string) => {
   return results;
 }
 
+  // try {
+  //   const q = `insert into ingreso(perid, dateingreso) values(${id}, now());`;
+  //   const ingreso = await db.query(q);
+  //   // const ingreso = await Ingreso.create({perid:id});
+  //   // console.log(ingreso);
+  //   // await ingreso.save();
+  //   return ingreso;
+  // } catch (error) {
+  //   console.log(error);
+  //   return [];
+  // }

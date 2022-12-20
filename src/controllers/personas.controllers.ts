@@ -1,8 +1,18 @@
 import { Request, Response } from "express";
+import { find_Ingreso } from "../helpers/cIngresos";
 import { datos_persona, datos_persona_julio, esNumero } from "../helpers/cPersonas";
 
 export const getPersona = async (req: Request, res: Response) => {
   const {termino} = req.params;
+
+  const buscarenIngreso = await find_Ingreso(termino);
+  if (buscarenIngreso.length>0) {
+    res.status(200).json({
+      tipo: 1,
+      data: buscarenIngreso
+    });
+    return;
+  }
   const buscarenlocal = await datos_persona(termino);
   if (buscarenlocal.length>0) {
     res.status(200).json({
@@ -21,7 +31,7 @@ export const getPersona = async (req: Request, res: Response) => {
     });
     return;
   }
-  res.status(200).json({
+  res.status(204).json({
     tipo: 4,
     data: []
   });

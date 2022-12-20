@@ -13,6 +13,7 @@ const config = {
 const db = new Sequelize(config.database, config.user, config.password, {
   host: config.server,
   dialect: 'postgres',
+  timezone: '-04:00'
   //logging: false
 });
 

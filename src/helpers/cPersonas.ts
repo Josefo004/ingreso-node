@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Op, Sequelize } from 'sequelize';
-import { TJulio, Tjulioquery } from '../interfaces/interfaces';
+import { TJulio, Tjulioquery, TPersona2 } from '../interfaces/interfaces';
 import Persona from '../models/tables/persona';
 
 import dotenv from 'dotenv'
@@ -34,12 +34,23 @@ export const datos_persona_julio = async (q:string, by:string) => {
     by,
     q
   }
-  console.log(buerpo);
+  //console.log(buerpo);
   try {
     const resp = await axios.post<TJulio[]>(apiJulio,buerpo);
     console.log(resp.data);
     return resp.data;
   } catch (error) {
+    return [];
+  }
+}
+
+export const insert_Persona = async(per:TPersona2) => {
+  try {
+    const persona = await Persona.create({per});
+    await persona.save();
+    return [persona];
+  } catch (error) {
+    console.log(error);
     return [];
   }
 }

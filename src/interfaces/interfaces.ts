@@ -43,6 +43,14 @@ export interface TPersona {
   biometrico: number | null;
 }
 
+export interface TPersona2 {
+  documento:  string;
+  nombre:     string;
+  paterno:    string | null;
+  materno:    string | null;
+  biometrico: number | null;
+}
+
 export interface Tpermiso {
   usuid:    number;
   permisos: string[];

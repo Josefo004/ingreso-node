@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { find_Ingreso } from "../helpers/cIngresos";
-import { datos_persona, datos_persona_julio, esNumero } from "../helpers/cPersonas";
+import { datos_persona, datos_persona_julio, esNumero, insert_Persona } from "../helpers/cPersonas";
 
 export const getPersona = async (req: Request, res: Response) => {
   const {termino} = req.params;
@@ -13,6 +13,7 @@ export const getPersona = async (req: Request, res: Response) => {
     });
     return;
   }
+
   const buscarenlocal = await datos_persona(termino);
   if (buscarenlocal.length>0) {
     res.status(200).json({
@@ -21,8 +22,10 @@ export const getPersona = async (req: Request, res: Response) => {
     });
     return;
   }
+  
   let campo = '';
   esNumero(termino)? campo='ci' : campo='name';
+  
   const buscarenJulio = await datos_persona_julio(termino,campo);
   if (buscarenJulio.length>0){
     res.status(200).json({
@@ -36,4 +39,15 @@ export const getPersona = async (req: Request, res: Response) => {
     data: []
   });
   return;
+}
+
+export const postPersona = async (req: Request, res: Response) => {
+  const {body} = req.body;
+  const persona = await insert_Persona(body);
+  if (persona.length>0) {
+    res.status(200).json({
+      data: persona
+    });
+    return;
+  }
 }
